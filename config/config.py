@@ -11,7 +11,7 @@ ID = config('MASTER_ID', cast=str)
 KNOW_ID = [int(x) for x in ID.split(',')]
 MASTER_ID = KNOW_ID[0]
 
-GAME_SHORT_NAME = 'form'
-GAME_URL = 'https://медовиков.рф:8443/'
+GAME_SHORT_NAME = config('GAME_SHORT_NAME', cast=str)
+GAME_URL = config('GAME_URL', cast=str )
 
 
