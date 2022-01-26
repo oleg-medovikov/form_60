@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<style>
+h1 {
+  text-align: center;
+  color: brown;
+  font-family: verdana;
+  font-size: 200%;
+
+}
+p  {
+  text-align: center;
+  color: red;
+  font-family: courier;
+  font-size: 120%;
+}
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Форма 60</title>
+</head>
+<body style="background-color:lightgray;">
+
+    <h1>Добавить нового пациента</h1>
+    
+    {% if ID %}
+        <p> Ваш ID группы {{ ID }}</p>
+    {% endif %}
+    
+    <form action="" method="post">
+        <p>
+	    <label for="username">Username</label>
+	    <input type="text" name="username">
+	</p>
+	<p>
+	    <label for="password">Password</label>
+	    <input type="password" name="password">
+	</p>
+	<p>
+	    <input type="submit">
+	</p>
+    </form>
+</body>
+</html>
