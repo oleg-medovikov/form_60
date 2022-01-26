@@ -4,7 +4,7 @@ from config import engine
 import pandas as pd 
 
 
-async def select_pachient(user_id:int) -> str:
+async def select_pachient(user) -> str:
     "Возращает путь к файлу пациентов"
     sql=f""" select unrz as 'УНРЗ',
                     date as 'Дата занесения',
@@ -26,7 +26,7 @@ async def select_pachient(user_id:int) -> str:
                     from pachient
                     where
                     type = 1
-                    and identificator = {await get_identificator(user_id)}
+                    and identificator = {await get_identificator(user)}
     """
     df = pd.read_sql(sql,engine)
     write_styling_excel_file('temp/pachients.xlsx', df, 'пациенты')

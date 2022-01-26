@@ -10,7 +10,7 @@ h1 {
 }
 p  {
   text-align: center;
-  color: red;
+  color: green;
   font-family: courier;
   font-size: 120%;
 }
@@ -22,10 +22,12 @@ p  {
 </head>
 <body style="background-color:lightgray;">
 
-    <h1>Добавить нового пациента</h1>
-    
-    {% if ID %}
-        <p> Ваш ID группы {{ ID }}</p>
+	{% if username %}
+	<h1>Здравствуйте {{username}}</h1>
+	{% endif %}
+
+    {% if identificator %}
+	<p> Ваш ID группы {{ identificator }}</p>
     {% endif %}
     
     <form action="" method="post">
