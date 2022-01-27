@@ -1,51 +1,58 @@
 class Form60 {
   constructor(selector) {
     this.form = document.querySelector(selector);
-    this.form.addEventListener('submit', this.handleSubmit);
+    this.input = this.form.querySelector('.js-input-snils');
+    this.init();
+  }
+
+  init() {
+    this.form.addEventListener('submit', this.handleSubmit.bind(this));
+    Maska.create('.js-input-snils', { mask: '###-###-### ##' });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    // TODO
+
+    const { value } = this.input;
+    const trimmedValue = value.replace(/[- ]/g, '');
+    const isValid = this.validateSNILS(trimmedValue);
+
+    if (isValid) {
+      // TODO Submit form
+    }
   }
 
-  validateSNILS(snils = '', error = {}) {
-    let result = false;
-    if (typeof snils === 'number') {
-      snils = snils.toString();
-    } else if (typeof snils !== 'string') {
-      snils = '';
-    }
-    if (!snils.length) {
-      error.code = 1;
-      error.message = 'СНИЛС пуст';
-    } else if (/[^0-9]/.test(snils)) {
-      error.code = 2;
-      error.message = 'СНИЛС может состоять только из цифр';
-    } else if (snils.length !== 11) {
-      error.code = 3;
-      error.message = 'СНИЛС может состоять только из 11 цифр';
+  setInputError(message = '') {
+    this.error = message;
+
+    if (message === '') {
+      this.input.classList.remove('form__input--invalid');
     } else {
-      var sum = 0;
-      for (var i = 0; i < 9; i++) {
-        sum += parseInt(snils[i]) * (9 - i);
-      }
-      var checkDigit = 0;
+      this.input.classList.add('form__input--invalid');
+    }
+    this.input.nextElementSibling.textContent = message;
+  }
+
+  validateSNILS(snils = '') {
+    const isFormatValid = snils.length === 11 && /^[0-9]{11}$/.test(snils);
+    if (!isFormatValid) {
+      this.setInputError('СНИЛС должен состоять из 11 цифр');
+    } else {
+      const digits = snils.split('').slice(0, 8);
+      const sum = digits.reduce((prev, next, index) => prev + next * (9 - index), 0);
+      let controlSum = 0;
       if (sum < 100) {
-        checkDigit = sum;
-      } else if (sum > 101) {
-        checkDigit = parseInt(sum % 101);
-        if (checkDigit === 100) {
-          checkDigit = 0;
-        }
+        controlSum = sum;
+      } else if (sum >= 101) {
+        controlSum = parseInt(sum % 101);
       }
-      if (checkDigit === parseInt(snils.slice(-2))) {
-        result = true;
+      if (controlSum === parseInt(snils.slice(-2))) {
+        this.setInputError('');
+        return true;
       } else {
-        error.code = 4;
-        error.message = 'Неправильное контрольное число';
+        this.setInputError('Неверное контрольное число');
+        return false;
       }
     }
-    return result;
   }
 }
