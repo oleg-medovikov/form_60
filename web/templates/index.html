@@ -1,43 +1,28 @@
 <!DOCTYPE html>
-<html>
-<style>
-h1 {
-  text-align: left;
-  color: brown;
-  font-family: verdana;
-  font-size: 130%;
-
-}
-p  {
-  text-align: left;
-  color: green;
-  font-family: verdena;
-  font-size: 90%;
-}
-</style>
-
-<head>
-    <meta charset="UTF-8">
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Форма 60</title>
-</head>
-<body style="background-color:lightgray;">
-
-	{% if username %}
-	<h1>Здравствуйте {{username}}</h1>
-	{% endif %}
-
-    {% if identificator %}
-	<p> Ваш ID группы {{ identificator }}</p>
-    {% endif %}
-    
-    <form action="" method="post">
-        <p>
-		<label for="snils">СНИЛС пациента</label>
-	    <input type="text" name="snils">
-	</p>
-	<p>
-	    <input type="submit" value="Найти пациента">
-	</p>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="body">
+    <form class="form" action="" method="post">
+      {% if username %}
+      <h1 class="form__heading">Здравствуйте, {{username}}</h1>
+      {% endif %} {% if identificator %}
+      <p class="form__text">Ваш ID группы {{ identificator }}</p>
+      {% endif %}
+      <label class="form__group" for="username">
+        <span class="form__label">Username</span>
+        <input class="form__input" type="text" name="username" />
+      </label>
+      <label class="form__group">
+        <span class="form__label">Password</span>
+        <input class="form__input" type="password" name="password" />
+      </label>
+      <button class="form__submit" type="submit">Submit</button>
     </form>
-</body>
+  </body>
 </html>
