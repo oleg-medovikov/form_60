@@ -99,9 +99,12 @@ async def send_game(inline_query: types.InlineQuery):
             inline_query.id,
             [InlineQueryResultGame(id=user_uuid, game_short_name=GAME_SHORT_NAME)])
 
-
+async def drop_table(table):
+    sql = f"drop table {table}"
+    await DB_EXECUTE(sql)
 
 if __name__ == '__main__':
+    #drop_table('pachient')
     t=threading.Thread(target=web_form, name="web_form")
     t.start()
     executor.start_polling(

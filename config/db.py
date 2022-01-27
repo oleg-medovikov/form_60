@@ -33,8 +33,8 @@ pachient = Table(
         Column("type", Integer),  # 0 - контактный, 1 - пациент 
         Column("unrz",  Integer), # УНРЗ
         Column("date",  Date),    # Дата создания записи
-        Column("cnils", String),  # СНИЛС
-        Column("polic", String),  # ПОЛИС
+        Column("snils", String),  # СНИЛС
+        Column("polis", String),  # ПОЛИС
         Column("fio",   String),  # ФИО
         Column("epid",  String),  # ЭПИД НОМЕР
         Column("epid_type", Integer), # тип эпид номера
@@ -44,14 +44,14 @@ pachient = Table(
         Column("birthday", Date), # Дата рождения
         Column("pasport",  String), # Паспортные данные
         Column("adress", String),   # Адрес проживания
-        Column("Comment", String),  # Коментарий
-        Column("Start_observation", Date), # Дата начала наблюдения
-        Column("End_observation", Date),   # Дата окончания наблюдения
+        Column("comment", String),  # Коментарий
+        Column("start_observation", Date), # Дата начала наблюдения
+        Column("end_observation", Date),   # Дата окончания наблюдения
         Column("telefon", String),  # Телефон
         Column("doctor", String),   # врач
         Column("work", String),     # место работы
-        Column("Start_ill", Date),  # дата начала заболевания
-        Column("Start_petition", Date), # дата обращения
+        Column("start_ill", Date),  # дата начала заболевания
+        Column("start_petition", Date), # дата обращения
         Column("identificator", Integer) # идентификатор группы
         )
 laboratory = Table(
