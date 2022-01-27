@@ -2,7 +2,7 @@ from flask import Flask, render_template , request
 
 from config import DB_QUERY
 from sql    import get_identificator
-from clas   import pachient
+from clas   import pch
 
 app = Flask(__name__)
 
@@ -27,7 +27,7 @@ async def index():
     # Ищем пациента в базе по снилсу
     if request.method == 'POST':
         SNILS = request.form.get('snils')
-        PACHIENT = await pachient.find_pachient(identificator, SNILS)
+        PACHIENT = await pch.find_pachient(identificator, SNILS)
         if PACHIENT == 0:
             # если не нашли, то предлагаем форму заполнения
             print(0)
