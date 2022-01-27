@@ -23,13 +23,12 @@ groups = Table(
         Column("user_id", Integer),
         Column("first_name", String),
         Column("second_name", String),
-        Column("identificator", Integer),
-        Column("uuid", String)
+        Column("identificator", Integer)
         )
 pachient = Table(
         'pachient',
         metadata,
-        Column("id", sqlalchemy.Integer, primary_key=True, \
+        Column("id", Integer, primary_key=True, \
                 autoincrement=True, unique=True), # уникальный номер пациента
         Column("type", Integer),  # 0 - контактный, 1 - пациент 
         Column("unrz",  Integer), # УНРЗ

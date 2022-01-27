@@ -5,7 +5,7 @@ from .get_identificator import get_identificator
 async def select_one_org_email(user_id:int, search:str) -> str:
     sql = f"""select email, organization
                 from org_email 
-                where identificator = {await get_identificator(user_id)}
+                where identificator = {await get_identificator(user)}
                 and (organization like '%{search}%'
                 or comment like '%{search}%')
                 """
