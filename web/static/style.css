@@ -41,15 +41,39 @@
 }
 
 .form__input {
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  margin-bottom: 0.25rem;
   padding: 0.5rem;
   width: 100%;
 }
 
+.form__input--invalid {
+  border: 1px solid red;
+}
+
+.form__error {
+  color: red;
+  display: block;
+  font-size: 0.75rem;
+  min-height: 1rem;
+}
+
 .form__submit {
+  background-color: orangered;
+  border: none;
+  border-radius: 4px;
+  color: white;
   font-size: 1rem;
+  font-weight: 700;
   padding: 0.5rem;
   text-transform: uppercase;
   width: 100%;
+}
+
+.form__submit:hover,
+.form__submit:active {
+  background-color: firebrick;
 }
 
 .form__submit:active {

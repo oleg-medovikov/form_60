@@ -6,10 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Форма 60</title>
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}" />
-    <script defer src="{{url_for('static', filename='Form60.js')}}"></script>
     <!-- TODO Убрать, когда будет готово -->
     <link rel="stylesheet" href="../static/style.css" />
-    <script src="../static/Form60.js"></script>
   </head>
   <body class="body">
     <main>
@@ -18,7 +16,8 @@
         <h2 class="form__heading">Поиск пациента</h2>
         <label class="form__group">
           <span class="form__label">СНИЛС</span>
-          <input class="form__input" type="text" name="snils" />
+          <input class="form__input js-input-snils" type="text" name="snils" />
+          <span class="form__error"></span>
         </label>
         <button class="form__submit" type="submit">Искать</button>
       </form>
@@ -28,6 +27,10 @@
       <p class="footer__text">Ваш ID группы {{ identificator }}</p>
       {% endif %}
     </footer>
+    <script src="{{url_for('static', filename='maska.js')}}"></script>
+    <script src="{{url_for('static', filename='Form60.js')}}"></script>
+    <script src="../static/maska.js"></script>
+    <script src="../static/Form60.js"></script>
     <script>
       const form = new Form60('.js-form');
     </script>
