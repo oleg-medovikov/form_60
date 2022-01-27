@@ -1,6 +1,16 @@
 class Form60 {
-  validateSnils(snils, error) {
-    var result = false;
+  constructor(selector) {
+    this.form = document.querySelector(selector);
+    this.form.addEventListener('submit', this.handleSubmit);
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    // TODO
+  }
+
+  validateSNILS(snils = '', error = {}) {
+    let result = false;
     if (typeof snils === 'number') {
       snils = snils.toString();
     } else if (typeof snils !== 'string') {

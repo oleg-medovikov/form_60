@@ -7,19 +7,29 @@
     <title>Форма 60</title>
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}" />
     <script defer src="{{url_for('static', filename='Form60.js')}}"></script>
+    <!-- TODO Убрать, когда будет готово -->
+    <link rel="stylesheet" href="../static/style.css" />
+    <script src="../static/Form60.js"></script>
   </head>
   <body class="body">
-    <form class="form" action="" method="post">
-      {% if username %}
-      <h1 class="form__heading">Здравствуйте, {{username}}</h1>
-      {% endif %} {% if identificator %}
-      <p class="form__text">Ваш ID группы {{ identificator }}</p>
+    <main>
+      <!-- {% if username %}<h1 class="greeting">Здравствуйте, {{username}}</h1>{% endif %} -->
+      <form class="form js-form" action="" method="post">
+        <h2 class="form__heading">Поиск пациента</h2>
+        <label class="form__group">
+          <span class="form__label">СНИЛС</span>
+          <input class="form__input" type="text" name="snils" />
+        </label>
+        <button class="form__submit" type="submit">Искать</button>
+      </form>
+    </main>
+    <footer class="footer">
+      {% if identificator %}
+      <p class="footer__text">Ваш ID группы {{ identificator }}</p>
       {% endif %}
-      <label class="form__group" for="username">
-        <span class="form__label">Попробовать найти пациента по СНИЛС</span>
-        <input class="form__input" type="text" name="snils" />
-      </label>
-      <button class="form__submit" type="submit">Найти пациента</button>
-    </form>
+    </footer>
+    <script>
+      const form = new Form60('.js-form');
+    </script>
   </body>
 </html>
