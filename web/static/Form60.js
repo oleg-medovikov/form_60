@@ -2,6 +2,7 @@ class Form60 {
   constructor(selector) {
     this.form = document.querySelector(selector);
     this.input = this.form.querySelector('.js-input-snils');
+	this.input2 = this.form.querySelector('js-input-id');
     this.init();
   }
 
@@ -16,9 +17,14 @@ class Form60 {
     const { value } = this.input;
     const trimmedValue = value.replace(/[- ]/g, '');
     const isValid = this.validateSNILS(trimmedValue);
+	const {value} = this.input2;
+	const identificator = value
 
     if (isValid) {
-      // TODO Submit form
+	  const formData = new FormData();
+	  formData.append('snils', trimmedValue);
+	  formData.append('id', identificator);
+      fetch('/', { method: 'POST', body: formData });
     }
   }
 

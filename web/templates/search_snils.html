@@ -12,19 +12,20 @@
   <body class="body">
     <main>
       <!-- {% if username %}<h1 class="greeting">Здравствуйте, {{username}}</h1>{% endif %} -->
-      <form class="form js-form" action="" method="post">
+      <form class="form js-form" action="" method="POST">
         <h2 class="form__heading">Поиск пациента</h2>
         <label class="form__group">
           <span class="form__label">СНИЛС</span>
-          <input class="form__input js-input-snils" type="search" name="snils" />
+          <input   class="form__input js-input-snils" type="search" name="snils" />
           <span class="form__error"></span>
         </label>
         <button class="form__submit" type="submit">Искать</button>
+		<input  class="form__input js-input-id" type="hidden" value="{{identificator}}" />
       </form>
     </main>
     <footer class="footer">
 		{% if identificator, username %}
-		<p class="footer__text">{{username}} ваш ID группы {{ identificator }}</p>
+		<p class="footer__text">{{username}}, ваш ID группы {{ identificator }}</p>
       {% endif %}
     </footer>
     <script src="{{url_for('static', filename='maska.js')}}"></script>

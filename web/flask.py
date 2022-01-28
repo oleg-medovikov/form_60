@@ -1,4 +1,4 @@
-from flask import Flask, render_template , request
+from flask import Flask, render_template , request, jsonify
 
 from config import DB_QUERY
 from sql    import get_identificator
@@ -6,50 +6,49 @@ from clas   import pch
 
 app = Flask(__name__)
 
-@app.route('/', methods=['post','get'])
-async def index():
-    ID = request.args.get('id')
-    try:
-        identificator = await get_identificator(int(ID))
-    except:
-        return render_template(
-                'error_no_id.html',
-                name='error',
-                )
-    # Если неправильный id в адресе, то выдаём ошибку
-    if identificator == 0:
-        return render_template(
-                'error_no_id.html',
-                name='error',
-                )
-    # Ищем имя и фамилию юзера в базе
-    sql = f"""select first_name,second_name
-                from groups
+ 
+@app.route('/', methods=['GET','POST'])
+async def find_snils():
+    if request.method == 'GET':
+        ID = request.args.get('id')
+        try:
+            identificator = await get_identificator(int(ID))
+        except:
+            return render_template(
+                    'error_no_id.html',
+                    name='error',
+                    )
+        # Если неправильный id в адресе, то выдаём ошибку
+        if identificator == 0:
+            return render_template(
+                    'error_no_id.html',
+                    name='error',
+                    )
+        # Ищем имя и фамилию юзера в базе
+        sql = f"""select first_name,second_name
+                    from groups
                     where user_id={int(ID)}"""
+        res = await DB_QUERY(sql)
+        username = str(res[0][0]) + ' ' +  str(res[0][1])
 
-    res = await DB_QUERY(sql)
-    username = str(res[0][0]) + ' ' +  str(res[0][1])
-    
-    # Ищем пациента в базе по снилсу
+        # отправляем форму приветствия
+        return render_template(
+                'search_snils.html',
+                name='main',
+                identificator=identificator,
+                username=username,
+                )
+
     if request.method == 'POST':
-        SNILS = request.form.get('snils')
-        PACHIENT = await pch.find_pachient(identificator, SNILS)
-        if PACHIENT == 0:
-            # если не нашли, то предлагаем форму заполнения
-            print(0)
-        else:
-            # если нашли, то выводим данные на экран
-            print(1)
-        
-
-    # отправляем форму приветствия
-    return render_template(
-            'search_snils.html',
-            name='main',
-            identificator=identificator,
-            username=username,
-            )
-
+        SNILS = request.form['snils']
+        ID = request.form['id']
+        print(SNILS,ID)
+        return render_template(
+                'create_pachient.html',
+                name='main',
+                snils=SNILS,
+                identificator=ID
+                )
 
 def web_form():
     app.run(

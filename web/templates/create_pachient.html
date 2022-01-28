@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Форма 60</title>
+	<link rel="stylesheet" href="{{url_for('static', filename='search_snils.css')}}" />
+  </head>
+  <body class="body">
+    <main>
+      <form class="form js-form" action="" method="POST">
+		  {% if snils %}
+		  <h2 class="form__heading">Я не нашёл пациента со СНИЛС</h2>
+		  <h2 class="form__heading">{{snils}}</h2>
+		  <h2 class="form__heading">Давайте заведём его!</h2>
+		  {% endif %}
+        <label class="form__group">
+          <span class="form__label">ФИО</span>
+          <input class="form__input" type="search" name="fio" />
+          <span class="form__error"></span>
+        </label>
+        <button class="form__submit" type="submit">Добавить пациента</button>
+      </form>
+    </main>
+    <footer class="footer">
+		{% if identificator, username %}
+		<p class="footer__text">{{username}}, ваш ID группы {{ identificator }}</p>
+      {% endif %}
+    </footer>
+  </body>
+</html>
+
