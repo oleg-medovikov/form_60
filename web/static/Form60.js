@@ -34,16 +34,18 @@ class Form60 {
   }
 
   validateSNILS(snils = '') {
-    const isFormatValid = snils.length === 11 && /^[0-9]{11}$/.test(snils);
+    const isFormatValid = /^[0-9]{11}$/.test(snils);
     if (!isFormatValid) {
       this.setInputError('СНИЛС должен состоять из 11 цифр');
+    } else if (/(\d)\1\1/.test(snils.slice(0, 9))) {
+      this.setInputError('Цифра не может повторяться более двух раз подряд');
     } else {
-      const digits = snils.split('').slice(0, 8);
+      const digits = snils.split('').slice(0, 9);
       const sum = digits.reduce((prev, next, index) => prev + next * (9 - index), 0);
       let controlSum = 0;
       if (sum < 100) {
         controlSum = sum;
-      } else if (sum >= 101) {
+      } else if (sum > 101) {
         controlSum = parseInt(sum % 101);
       }
       if (controlSum === parseInt(snils.slice(-2))) {
