@@ -1,8 +1,8 @@
 class Form60 {
   constructor(selector) {
     this.form = document.querySelector(selector);
-    this.input = this.form.querySelector('.js-input-snils');
-	this.input2 = this.form.querySelector('js-input-id');
+    this.inputSNILS = this.form.querySelector('.js-input-snils');
+    this.inputID = this.form.querySelector('.js-input-id');
     this.init();
   }
 
@@ -14,16 +14,14 @@ class Form60 {
   handleSubmit(e) {
     e.preventDefault();
 
-    const { value } = this.input;
-    const trimmedValue = value.replace(/[- ]/g, '');
-    const isValid = this.validateSNILS(trimmedValue);
-	const {value} = this.input2;
-	const identificator = value
+    const snils = this.inputSNILS.value.replace(/[- ]/g, '');
+    const isValid = this.validateSNILS(snils);
+    const id = this.inputID.value;
 
     if (isValid) {
-	  const formData = new FormData();
-	  formData.append('snils', trimmedValue);
-	  formData.append('id', identificator);
+      const formData = new FormData();
+      formData.append('snils', snils);
+      formData.append('id', id);
       fetch('/', { method: 'POST', body: formData });
     }
   }
@@ -32,11 +30,11 @@ class Form60 {
     this.error = message;
 
     if (message === '') {
-      this.input.classList.remove('form__input--invalid');
+      this.inputSNILS.classList.remove('form__input--invalid');
     } else {
-      this.input.classList.add('form__input--invalid');
+      this.inputSNILS.classList.add('form__input--invalid');
     }
-    this.input.nextElementSibling.textContent = message;
+    this.inputSNILS.nextElementSibling.textContent = message;
   }
 
   validateSNILS(snils = '') {

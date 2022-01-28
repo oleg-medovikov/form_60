@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Форма 60</title>
-	<link rel="stylesheet" href="{{url_for('static', filename='search_snils.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}" />
     <!-- TODO Убрать, когда будет готово -->
-    <link rel="stylesheet" href="../static/style.css" />
+    <link rel="stylesheet" href="../static/styles.css" />
   </head>
   <body class="body">
     <main>
@@ -16,16 +16,16 @@
         <h2 class="form__heading">Поиск пациента</h2>
         <label class="form__group">
           <span class="form__label">СНИЛС</span>
-          <input   class="form__input js-input-snils" type="search" name="snils" />
+          <input class="form__input js-input-snils" type="search" name="snils" />
           <span class="form__error"></span>
         </label>
         <button class="form__submit" type="submit">Искать</button>
-		<input  class="form__input js-input-id" type="hidden" value="{{identificator}}" />
+        <input class="form__input js-input-id" type="hidden" value="{{ identificator }}" />
       </form>
     </main>
     <footer class="footer">
-		{% if identificator, username %}
-		<p class="footer__text">{{username}}, ваш ID группы {{ identificator }}</p>
+      {% if identificator, username %}
+      <p class="footer__text">{{username}}, ваш ID группы {{ identificator }}</p>
       {% endif %}
     </footer>
     <script src="{{url_for('static', filename='maska.js')}}"></script>
@@ -37,4 +37,3 @@
     </script>
   </body>
 </html>
-
