@@ -9,7 +9,13 @@ app = Flask(__name__)
 @app.route('/', methods=['post','get'])
 async def index():
     ID = request.args.get('id')
-    identificator = await get_identificator(int(ID))
+    try:
+        identificator = await get_identificator(int(ID))
+    except:
+        return render_template(
+                'error_no_id.html',
+                name='error',
+                )
     # Если неправильный id в адресе, то выдаём ошибку
     if identificator == 0:
         return render_template(
@@ -38,7 +44,7 @@ async def index():
 
     # отправляем форму приветствия
     return render_template(
-            'index.html',
+            'search_snils.html',
             name='main',
             identificator=identificator,
             username=username,
