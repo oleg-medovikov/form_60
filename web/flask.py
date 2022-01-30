@@ -1,4 +1,4 @@
-from flask import Flask, render_template , request, jsonify
+from flask import Flask, render_template , request, jsonify, make_response
 
 from config import DB_QUERY
 from sql    import get_identificator
@@ -7,7 +7,7 @@ from clas   import pch
 app = Flask(__name__)
 
  
-@app.route('/', methods=['GET','POST'])
+@app.route('/', methods=['GET'])
 async def find_snils():
     if request.method == 'GET':
         ID = request.args.get('id')
@@ -34,18 +34,26 @@ async def find_snils():
         # отправляем форму приветствия
         return render_template(
                 'search_snils.html',
-                name='main',
+                name='search_snils',
                 identificator=identificator,
                 username=username,
                 )
-
+@app.route('/', methods=['POST'])
+async def create_pachient():
     if request.method == 'POST':
         SNILS = request.form['snils']
         ID = request.form['id']
-        print(SNILS,ID)
+        #print(SNILS,ID)
+        # Ищем пациента по снилс
+        res = await pch.find_pachient(ID,SNILS)
+        if res == 0:
+            make_response(jsonify(""), 404)
+        else:
+            make_response(jsonify(res), 200)
+
         return render_template(
                 'create_pachient.html',
-                name='main',
+                name='create_pachient',
                 snils=SNILS,
                 identificator=ID
                 )

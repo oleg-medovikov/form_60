@@ -24,8 +24,8 @@
       </form>
     </main>
     <footer class="footer">
-		{% if identificator, username %}
-		<p class="footer__text">{{username}}, ваш ID группы {{ identificator }}</p>
+		{% if identificator %}
+		<p class="footer__text">Ваш ID группы {{ identificator }}</p>
       {% endif %}
     </footer>
   </body>
