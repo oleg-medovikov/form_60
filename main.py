@@ -3,7 +3,7 @@
 Автор Медовиков Олег
 2022
 """
-import logging, threading
+import logging
 from uuid import uuid4
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.types import InlineQueryResultGame
@@ -103,12 +103,12 @@ async def drop_table(table):
     sql = f"drop table {table}"
     await DB_EXECUTE(sql)
 
+
 if __name__ == '__main__':
     #drop_table('pachient')
-    t=threading.Thread(target=web_form, name="web_form")
-    t.start()
+    web_form()
     executor.start_polling(
             dp,
+            skip_updates=True,
             on_startup=on_startup)
-
 

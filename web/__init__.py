@@ -1,1 +1,1 @@
-from .flask import web_form
+from .api import web_form
