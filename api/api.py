@@ -26,11 +26,11 @@ async def create_pachient(SNILS,IDENTIFICATOR):
 
 
 def api_run():
-    uvicorn.run("web.api:app",
+    uvicorn.run("api.api:app",
             host="0.0.0.0",port=8443,
             reload=True,workers =2, 
-            ssl_keyfile='web/oleg.key', 
-            ssl_certfile='web/oleg.crt',)
+            ssl_keyfile='api/oleg.key', 
+            ssl_certfile='api/oleg.crt',)
 
 def web_form():
     proc = Process(target=api_run, args=(), daemon=False)

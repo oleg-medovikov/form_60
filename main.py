@@ -11,7 +11,7 @@ from aiogram.types import InlineQueryResultGame
 from config import  TELEGRAM_BOT_URL, GAME_SHORT_NAME, GAME_URL
 from func   import *
 from sql    import *
-from web    import *
+from api    import *
 
 logging.basicConfig(level=logging.INFO)
 
