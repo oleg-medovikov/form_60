@@ -19,7 +19,7 @@ async def find_user(ID):
 async def create_pachient(SNILS,IDENTIFICATOR):
     # Ищем пациента по снилс
     PACHIENT = await pch.find_pachient(ID,SNILS)
-    if res == 0:
+    if PACHIENT == 0:
         return {}
     else:
         return PACHIENT
