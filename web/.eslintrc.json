@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json.schemastore.org/eslintrc",
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "plugin:import/typescript",
+    "eslint-config-prettier"
+  ],
+  "globals": {
+    "React": "writable"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "@typescript-eslint", "eslint-plugin-prettier"],
+  "rules": {
+    "import/prefer-default-export": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }],
+    // needed for NextJS's jsx without react import
+    "react/react-in-jsx-scope": "off",
+    // Disable prop-types as we use TypeScript for type checking
+    "react/prop-types": "off",
+    "import/extensions": ["error", "ignorePackages", { "ts": "never", "tsx": "never" }],
+    "react/jsx-props-no-spreading": ["error", { "exceptions": ["App", "Component"] }],
+    "react/function-component-definition": [
+      "warn",
+      { "namedComponents": "arrow-function", "unnamedComponents": "arrow-function" }
+    ]
+  },
+  "settings": {
+    "import/resolver": "typescript"
+  }
+}
