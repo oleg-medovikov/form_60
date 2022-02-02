@@ -35,11 +35,11 @@ class Patient:
             return 0
         return res
 
-    async def create(self, pch) -> bool:
-        found = await self.find(pch.identificator, pch.snils)
+    async def create(self, patient) -> bool:
+        found = await self.find(patient.identificator, patient.snils)
         if not found == 0:
             return False
-        query = pachient.insert().values(**pch)
+        query = pachient.insert().values(**patient)
         await db.execute(query)
         return True
 
