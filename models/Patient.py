@@ -37,7 +37,7 @@ class Patient:
 
     async def create(self, patient) -> bool:
         found = await self.find(patient.identificator, patient.snils)
-        if not found == 0:
+        if found:
             return False
         query = pachient.insert().values(**patient)
         await db.execute(query)
