@@ -13,6 +13,7 @@ from func   import *
 from sql    import *
 from api    import *
 
+
 logging.basicConfig(level=logging.INFO)
 
 bot = Bot(token=TELEGRAM_BOT_URL)
