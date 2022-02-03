@@ -6,6 +6,8 @@ import Input from '@mui/material/Input';
 import TextField from '@mui/material/TextField';
 import styled from '@emotion/styled';
 
+import { useUser } from '@hooks/useUser';
+
 type Props = {};
 
 const StyledForm = styled.form`
@@ -15,6 +17,8 @@ const StyledForm = styled.form`
 
 const PatientSearch: React.FC<Props> = () => {
   const [searchParams] = useSearchParams();
+  const uid = searchParams.get('uid') || '';
+  const user = useUser(uid);
   const [userID, setUserID] = useState('');
   const [userFIO, setUserFIO] = useState('');
   const { register, handleSubmit, setValue } = useForm();
@@ -31,22 +35,10 @@ const PatientSearch: React.FC<Props> = () => {
   };
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const uid = searchParams.get('uid');
-        const res = await fetch(`https://медовиков.рф:8443/users/${uid}`);
-        const { user_id: id, first_name: firstName, second_name: secondName } = await res.json();
-        setUserID(id);
-        setUserFIO(`${firstName} ${secondName}`);
-        setValue('identificator', id)
-      } catch (err) {
-        setUserID('0');
-        setUserFIO('Аноним');
-      }
-    };
-
-    getData();
-  }, []);
+    setValue('identificator', user.id);
+    setUserID(user.id);
+    setUserFIO(user.fio);
+  }, [user]);
 
   return (
     <>

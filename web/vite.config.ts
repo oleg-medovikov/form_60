@@ -8,6 +8,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@components': path.join(__dirname, 'src/components'),
+      '@hooks': path.join(__dirname, 'src/hooks'),
       '@pages': path.join(__dirname, 'src/pages'),
     },
   },
