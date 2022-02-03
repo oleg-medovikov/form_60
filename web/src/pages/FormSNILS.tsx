@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 type Props = {};
 
 const FormSNILS: React.FC<Props> = () => {
-  const [searchParams] = useSearchParams();
+  const { search } = useLocation();
   const [userID, setUserID] = useState('');
   const [userFIO, setUserFIO] = useState('');
 
@@ -15,8 +15,9 @@ const FormSNILS: React.FC<Props> = () => {
         const res = await fetch(`https://медовиков.рф:8443/users/${uid}`);
         const { user_id: id, first_name: firstName, second_name: secondName } = await res.json();
 		console.log(id);	
+
         setUserID(id);
-        setUserFIO(`${firstName} ${secondName}`);
+        setUserFIO(name);
       } catch (err) {
         setUserID('0');
         setUserFIO('Аноним');

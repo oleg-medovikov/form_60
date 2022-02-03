@@ -7,7 +7,6 @@ from clas   import pch, user
 
 app = FastAPI(title="form_60_API")
 
-
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -26,25 +25,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-"""
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse
-
-#app.mount("/form", StaticFiles(directory="web", html=True ), name="form")
-
-templates = Jinja2Templates(directory="web")
-
-@app.get("/", response_class=HTMLResponse)
-async def home(request: Request):
-    data = {
-        "identificator": 242342,
-        "username" : "Oleg Medovikov"
-    }
-    return templates.TemplateResponse("dist/index.html", {"request": request, "data": data})
-"""
 
 @app.get('/users/{ID}')
 async def find_user(ID):
