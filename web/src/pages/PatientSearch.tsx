@@ -39,13 +39,7 @@ const PatientSearch: React.FC<Props> = () => {
   return (
     <>
       <Typography variant="h6" component="h1" sx={{ mb: 4 }}>
-        {userFIO === '' ? (
-          'Loading...'
-        ) : (
-          <>
-            Привет, {userFIO}! Ваш ID: {userID}
-          </>
-        )}
+        Привет, {userFIO}! Ваш ID: {userID}
       </Typography>
 
       <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ display: 'flex', gap: 0.5 }}>
