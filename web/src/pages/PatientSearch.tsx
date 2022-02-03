@@ -1,19 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
 import TextField from '@mui/material/TextField';
-import styled from '@emotion/styled';
+import Typography from '@mui/material/Typography';
 
 import { useUser } from '@hooks/useUser';
 
 type Props = {};
-
-const StyledForm = styled.form`
-  display: flex;
-  gap: 4px;
-`;
 
 const PatientSearch: React.FC<Props> = () => {
   const [searchParams] = useSearchParams();
@@ -42,14 +38,17 @@ const PatientSearch: React.FC<Props> = () => {
 
   return (
     <>
-      {userFIO === '' ? (
-        <h1>Loading...</h1>
-      ) : (
-        <h1>
-          Привет, {userFIO}! Ваш ID: {userID}
-        </h1>
-      )}
-      <StyledForm onSubmit={handleSubmit(onSubmit)}>
+      <Typography variant="h6" component="h1" sx={{ mb: 4 }}>
+        {userFIO === '' ? (
+          'Loading...'
+        ) : (
+          <>
+            Привет, {userFIO}! Ваш ID: {userID}
+          </>
+        )}
+      </Typography>
+
+      <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ display: 'flex', gap: 0.5 }}>
         <TextField
           type="search"
           variant="outlined"
@@ -60,7 +59,7 @@ const PatientSearch: React.FC<Props> = () => {
         <Button type="submit" variant="contained">
           Искать
         </Button>
-      </StyledForm>
+      </Box>
     </>
   );
 };
