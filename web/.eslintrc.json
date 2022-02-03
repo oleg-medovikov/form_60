@@ -31,7 +31,7 @@
     // Disable prop-types as we use TypeScript for type checking
     "react/prop-types": "off",
     "import/extensions": ["error", "ignorePackages", { "ts": "never", "tsx": "never" }],
-    "react/jsx-props-no-spreading": ["error", { "exceptions": ["App", "Component"] }],
+    "react/jsx-props-no-spreading": "off",
     "react/function-component-definition": [
       "warn",
       { "namedComponents": "arrow-function", "unnamedComponents": "arrow-function" }
