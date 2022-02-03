@@ -9,7 +9,7 @@ export const useUser = (uid: string) => {
   const [user, setUser] = useState<User>({ id: '0', fio: 'Аноним' });
 
   useEffect(() => {
-    const getData = async () => {
+    const fetchUser = async () => {
       try {
         const res = await fetch(`https://медовиков.рф:8443/users/${uid}`);
         const { user_id: id, first_name: firstName, second_name: secondName } = await res.json();
@@ -19,7 +19,7 @@ export const useUser = (uid: string) => {
       }
     };
 
-    getData();
+    fetchUser();
   }, []);
 
   return user;
