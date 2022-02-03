@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+
 import uvicorn
 from multiprocessing import Process
 
@@ -6,8 +7,25 @@ from clas   import pch, user
 
 app = FastAPI(title="form_60_API")
 
+"""
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
 
-@app.get('/user/{ID}')
+#app.mount("/form", StaticFiles(directory="web", html=True ), name="form")
+
+templates = Jinja2Templates(directory="web")
+
+@app.get("/", response_class=HTMLResponse)
+async def home(request: Request):
+    data = {
+        "identificator": 242342,
+        "username" : "Oleg Medovikov"
+    }
+    return templates.TemplateResponse("dist/index.html", {"request": request, "data": data})
+"""
+
+@app.get('/users/{ID}')
 async def find_user(ID):
     USER = await user.find_user(int(ID))
     if USER == 0:
@@ -19,6 +37,7 @@ async def find_user(ID):
 async def create_pachient(SNILS,IDENTIFICATOR):
     # Ищем пациента по снилс
     PACHIENT = await pch.find_pachient(ID,SNILS)
+
     if PACHIENT == 0:
         return {}
     else:
