@@ -12,7 +12,7 @@ const FormSNILS: React.FC<Props> = () => {
     const getData = async () => {
       try {
         const uid = searchParams.get('uid');
-        const res = await fetch(`/users/${uid}`);
+        const res = await fetch(`https://медовиков.рф:8443/users/${uid}`);
         const { user_id: id, first_name: firstName, second_name: secondName } = await res.json();
         setUserID(id);
         setUserFIO(`${firstName} ${secondName}`);

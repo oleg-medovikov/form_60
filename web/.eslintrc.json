@@ -16,9 +16,7 @@
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
+    "ecmaFeatures": { "jsx": true },
     "ecmaVersion": 12,
     "sourceType": "module"
   },
@@ -27,7 +25,7 @@
     "import/prefer-default-export": "off",
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "error",
-    "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }],
+    "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
     // needed for NextJS's jsx without react import
     "react/react-in-jsx-scope": "off",
     // Disable prop-types as we use TypeScript for type checking
@@ -41,5 +39,6 @@
   },
   "settings": {
     "import/resolver": "typescript"
-  }
+  },
+  "ignorePatterns": ["vite.config.ts"]
 }
