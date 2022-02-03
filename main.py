@@ -89,7 +89,7 @@ async def send_welcome(callback_query: types.CallbackQuery):
 
     await bot.answer_callback_query(
             callback_query.id, 
-            url=GAME_URL + f'?id={user_id}')
+            url=GAME_URL + f'?uid={user_id}')
 
 #====создаём приглашение в форму в чате=============
 @dp.inline_handler()
