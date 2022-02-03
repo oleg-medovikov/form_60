@@ -11,8 +11,8 @@ const FormSNILS: React.FC<Props> = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const uid = search.replace(/\?uid=(\d+)/, '$1');
-        const res = await fetch(`/users/${uid}`);
+        const uid = search.replace( /[?|&]uid=(\d{8})/, '$1');
+        const res = await fetch('https://xn--b1aaedrmjsd.xn--p1ai:8443/users/${uid}');
         const { id, name } = await res.json();
         setUserID(id);
         setUserFIO(name);
