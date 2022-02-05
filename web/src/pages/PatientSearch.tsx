@@ -8,6 +8,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import { useUser } from '@hooks/useUser';
+import { snilsRepeat, snilsSum } from '@utils/validate';
 
 type Props = {};
 
@@ -47,7 +48,14 @@ const PatientSearch: React.FC<Props> = () => {
           type="search"
           variant="outlined"
           label="СНИЛС"
-          {...register('snils', { required: true, onChange: onSnilsChange })}
+          {...register('snils', {
+            required: true,
+            onChange: onSnilsChange,
+            validate: {
+              snilsRepeat,
+              snilsSum,
+            },
+          })}
         />
         <Input type="hidden" {...register('identificator', { required: true })} />
         <Button type="submit" variant="contained">
