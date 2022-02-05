@@ -18,7 +18,12 @@ const PatientSearch: React.FC<Props> = () => {
   const user = useUser(uid);
   const [userID, setUserID] = useState('');
   const [userFIO, setUserFIO] = useState('');
-  const { register, handleSubmit, setValue } = useForm();
+  const {
+    formState: { errors },
+    handleSubmit,
+    register,
+    setValue,
+  } = useForm();
   const onSubmit = (data: any) => console.log(data);
 
   const onSnilsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,28 +42,51 @@ const PatientSearch: React.FC<Props> = () => {
     setUserFIO(user.fio);
   }, [user]);
 
+  const getErrorMessage = () => {
+    switch (errors.snils?.type) {
+      case 'required':
+        return 'Поле обязательно';
+      case 'minLength':
+        return 'СНИЛС должен состоять из 11 цифр';
+      case 'snilsRepeat':
+        return 'Цифра не может повторяться более двух раз подряд';
+      case 'snilsSum':
+        return 'Контрольная сумма не сходится';
+      default:
+        return 'Поле не прошло валидацию';
+    }
+  };
+
   return (
     <>
       <Typography variant="h6" component="h1" sx={{ mb: 4 }}>
         Привет, {userFIO}! Ваш ID: {userID}
       </Typography>
 
-      <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ display: 'flex', gap: 0.5 }}>
+      <Box
+        component="form"
+        onSubmit={handleSubmit(onSubmit)}
+        sx={{ display: 'flex', alignItems: 'start', gap: 0.5, maxWidth: 440 }}
+      >
         <TextField
           type="search"
           variant="outlined"
           label="СНИЛС"
           {...register('snils', {
             required: true,
+            minLength: 11,
             onChange: onSnilsChange,
             validate: {
               snilsRepeat,
               snilsSum,
             },
           })}
+          error={errors.snils}
+          helperText={errors.snils && getErrorMessage()}
+          sx={{ flex: '1 1 0' }}
         />
         <Input type="hidden" {...register('identificator', { required: true })} />
-        <Button type="submit" variant="contained">
+        <Button type="submit" variant="contained" sx={{ lineHeight: 1.4, py: 2.2 }}>
           Искать
         </Button>
       </Box>
