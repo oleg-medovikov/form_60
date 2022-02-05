@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
 
-import { FormSNILS } from '@pages/FormSNILS';
+import { PatientSearch } from '@pages/PatientSearch';
 
 const App = () => (
   <Routes>
-    <Route path="/" element={<FormSNILS />} />
+    <Route path="/" element={<PatientSearch />} />
   </Routes>
 );
 

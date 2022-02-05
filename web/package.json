@@ -9,16 +9,21 @@
     "prettify": "prettier src --write"
   },
   "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@mui/material": "^5.4.0",
     "http-server": "^14.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-hook-form": "^7.25.3",
     "react-router-dom": "^6.2.1"
   },
   "devDependencies": {
+    "@types/node": "^17.0.14",
     "@types/react": "^17.0.33",
     "@types/react-dom": "^17.0.10",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
-    "@typescript-eslint/parser": "^5.10.1",
+    "@typescript-eslint/parser": "^5.10.2",
     "@vitejs/plugin-react": "^1.0.7",
     "eslint": "^8.8.0",
     "eslint-config-airbnb": "^19.0.4",
