@@ -10,6 +10,7 @@ export default defineConfig({
       '@components': path.join(__dirname, 'src/components'),
       '@hooks': path.join(__dirname, 'src/hooks'),
       '@pages': path.join(__dirname, 'src/pages'),
+      '@providers': path.join(__dirname, 'src/providers'),
       '@utils': path.join(__dirname, 'src/utils'),
     },
   },
