@@ -3,7 +3,8 @@ import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 
 import { PatientSearch } from '@pages/PatientSearch';
-import { AppError } from '@components/AppError/AppError';
+import { AppError } from '@components/AppError';
+import { Footer } from '@components/Footer';
 
 const App = () => (
   <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
@@ -12,6 +13,7 @@ const App = () => (
     <Routes>
       <Route path="/" element={<PatientSearch />} />
     </Routes>
+    <Footer />
   </Box>
 );
 

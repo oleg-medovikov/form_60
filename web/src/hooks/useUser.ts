@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+
 import { useAppError } from './useAppError';
 
 type User = {
@@ -6,9 +8,11 @@ type User = {
   fio: string;
 };
 
-export const useUser = (uid: string) => {
-  const [user, setUser] = useState<User>({ id: '0', fio: 'Аноним' });
+export const useUser = () => {
+  const [user, setUser] = useState<User>({ id: '', fio: '' });
   const { setErrorMessage } = useAppError();
+  const [searchParams] = useSearchParams();
+  const uid = searchParams.get('uid') || '';
 
   useEffect(() => {
     const fetchUser = async () => {

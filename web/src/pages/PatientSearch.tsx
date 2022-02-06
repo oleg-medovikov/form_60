@@ -1,11 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useSearchParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Input from '@mui/material/Input';
+import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 
 import { useUser } from '@hooks/useUser';
 import { snilsRepeat, snilsSum } from '@utils/validate';
@@ -13,11 +11,7 @@ import { snilsRepeat, snilsSum } from '@utils/validate';
 type Props = {};
 
 const PatientSearch: React.FC<Props> = () => {
-  const [searchParams] = useSearchParams();
-  const uid = searchParams.get('uid') || '';
-  const user = useUser(uid);
-  const [userID, setUserID] = useState('');
-  const [userFIO, setUserFIO] = useState('');
+  const user = useUser();
   const {
     formState: { errors },
     handleSubmit,
@@ -38,8 +32,6 @@ const PatientSearch: React.FC<Props> = () => {
 
   useEffect(() => {
     setValue('identificator', user.id);
-    setUserID(user.id);
-    setUserFIO(user.fio);
   }, [user]);
 
   const getErrorMessage = () => {
@@ -58,15 +50,11 @@ const PatientSearch: React.FC<Props> = () => {
   };
 
   return (
-    <>
-      <Typography variant="h6" component="h1" sx={{ mb: 4 }}>
-        Привет, {userFIO}! Ваш ID: {userID}
-      </Typography>
-
+    <Container sx={{ py: 6 }}>
       <Box
         component="form"
         onSubmit={handleSubmit(onSubmit)}
-        sx={{ display: 'flex', alignItems: 'start', gap: 0.5, maxWidth: 440 }}
+        sx={{ display: 'flex', flexDirection: 'column', gap: 2, maxWidth: 440, mx: 'auto' }}
       >
         <TextField
           type="search"
@@ -83,14 +71,14 @@ const PatientSearch: React.FC<Props> = () => {
           })}
           error={errors.snils}
           helperText={errors.snils && getErrorMessage()}
-          sx={{ flex: '1 1 0' }}
+          margin="normal"
         />
-        <Input type="hidden" {...register('identificator', { required: true })} />
-        <Button type="submit" variant="contained" sx={{ lineHeight: 1.4, py: 2.2 }}>
+        <input type="hidden" {...register('identificator', { required: true })} />
+        <Button type="submit" variant="contained">
           Искать
         </Button>
       </Box>
-    </>
+    </Container>
   );
 };
 
