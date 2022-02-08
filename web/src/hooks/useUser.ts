@@ -1,12 +1,18 @@
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+
+import { useAppError } from './useAppError';
 
 type User = {
   id: string;
   fio: string;
 };
 
-export const useUser = (uid: string) => {
-  const [user, setUser] = useState<User>({ id: '0', fio: 'Аноним' });
+export const useUser = () => {
+  const [user, setUser] = useState<User>({ id: '', fio: '' });
+  const { setErrorMessage } = useAppError();
+  const [searchParams] = useSearchParams();
+  const uid = searchParams.get('uid') || '';
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -14,8 +20,8 @@ export const useUser = (uid: string) => {
         const res = await fetch(`https://медовиков.рф:8443/users/${uid}`);
         const { user_id: id, first_name: firstName, second_name: secondName } = await res.json();
         setUser({ id, fio: `${firstName} ${secondName}` });
-      } catch (err) {
-        setUser({ id: '0', fio: 'Аноним' });
+      } catch {
+        setErrorMessage('Сервер недоступен');
       }
     };
 
