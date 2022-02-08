@@ -7,9 +7,10 @@ export const useSessionStorage = <T>(key: string, initialValue: T) => {
   const [storedValue, setStoredValue] = useState<T>(() => {
     try {
       const item = window.sessionStorage.getItem(key);
+      setErrorMessage('');
       return item ? JSON.parse(item) : initialValue;
     } catch (error) {
-      setErrorMessage('Session storage access failed');
+      setErrorMessage('Ошибка доступа к сессионному хранилищу');
       return initialValue;
     }
   });
@@ -19,8 +20,9 @@ export const useSessionStorage = <T>(key: string, initialValue: T) => {
       const valueToStore = value instanceof Function ? value(storedValue) : value;
       setStoredValue(valueToStore);
       window.sessionStorage.setItem(key, JSON.stringify(valueToStore));
+      setErrorMessage('');
     } catch (error) {
-      setErrorMessage('Session storage save failed');
+      setErrorMessage('Ошибка записи в сессионное хранилищу');
     }
   };
 

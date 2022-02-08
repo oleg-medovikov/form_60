@@ -23,6 +23,7 @@ export const useUser = () => {
         const { user_id: id, first_name: firstName, second_name: secondName } = await res.json();
         setConfig({ groupId: String(id) });
         setUser({ id, fio: `${firstName} ${secondName}` });
+        setErrorMessage('');
       } catch {
         setErrorMessage('Сервер недоступен');
       }

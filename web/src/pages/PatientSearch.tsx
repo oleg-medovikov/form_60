@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 
+import { useAppError } from '@hooks/useAppError';
 import { useUser } from '@hooks/useUser';
 import { snilsRepeat, snilsSum } from '@utils/validate';
 
@@ -12,13 +13,29 @@ type Props = {};
 
 const PatientSearch: React.FC<Props> = () => {
   const user = useUser();
+  const { setErrorMessage } = useAppError();
   const {
     formState: { errors },
     handleSubmit,
     register,
     setValue,
   } = useForm();
-  const onSubmit = (data: any) => console.log(data);
+  const onSubmit = async ({ snils, gid }: { [key: string]: string }) => {
+    try {
+      const res = await fetch(
+        `https://медовиков.рф:8443/patients/?snils=${snils}&identificator=${gid}`
+      );
+
+      if (res.status === 200) {
+        console.log(res);
+      } else if (res.status === 404) {
+        console.log('Not found');
+      }
+      setErrorMessage('');
+    } catch {
+      setErrorMessage('Сервер недоступен');
+    }
+  };
 
   const onSnilsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const masked = e.target.value
@@ -31,7 +48,7 @@ const PatientSearch: React.FC<Props> = () => {
   };
 
   useEffect(() => {
-    setValue('identificator', user.id);
+    setValue('gid', user.id);
   }, [user]);
 
   const getErrorMessage = () => {
@@ -53,8 +70,19 @@ const PatientSearch: React.FC<Props> = () => {
     <Container sx={{ py: 6 }}>
       <Box
         component="form"
+        method="GET"
         onSubmit={handleSubmit(onSubmit)}
-        sx={{ display: 'flex', flexDirection: 'column', gap: 2, maxWidth: 440, mx: 'auto' }}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 4,
+          maxWidth: 440,
+          mx: 'auto',
+          '& .MuiFormHelperText-root': {
+            position: 'absolute',
+            top: '100%',
+          },
+        }}
       >
         <TextField
           type="search"
@@ -69,11 +97,11 @@ const PatientSearch: React.FC<Props> = () => {
               snilsSum,
             },
           })}
-          error={errors.snils}
+          error={!!errors.snils}
           helperText={errors.snils && getErrorMessage()}
           margin="normal"
         />
-        <input type="hidden" {...register('identificator', { required: true })} />
+        <input type="hidden" {...register('gid', { required: true })} />
         <Button type="submit" variant="contained">
           Искать
         </Button>
