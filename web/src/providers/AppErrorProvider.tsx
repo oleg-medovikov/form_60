@@ -1,4 +1,4 @@
-import React, { createContext, useMemo, useState } from 'react';
+import { createContext, useMemo, useState } from 'react';
 
 type AppErrorState = {
   errorMessage: string;
