@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 
+import { Form } from '@components/Form';
+import { useAppError } from '@hooks/useAppError';
 import { useUser } from '@hooks/useUser';
 import { snilsRepeat, snilsSum } from '@utils/validate';
 
@@ -12,13 +13,29 @@ type Props = {};
 
 const PatientSearch: React.FC<Props> = () => {
   const user = useUser();
+  const { setErrorMessage } = useAppError();
   const {
     formState: { errors },
     handleSubmit,
     register,
     setValue,
   } = useForm();
-  const onSubmit = (data: any) => console.log(data);
+  const onSubmit = async ({ snils, gid }: { [key: string]: string }) => {
+    try {
+      const res = await fetch(
+        `https://медовиков.рф:8443/patients/?snils=${snils}&identificator=${gid}`
+      );
+
+      if (res.status === 200) {
+        console.log(res);
+      } else if (res.status === 404) {
+        console.log('Not found');
+      }
+      setErrorMessage('');
+    } catch {
+      setErrorMessage('Сервер недоступен');
+    }
+  };
 
   const onSnilsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const masked = e.target.value
@@ -31,7 +48,7 @@ const PatientSearch: React.FC<Props> = () => {
   };
 
   useEffect(() => {
-    setValue('identificator', user.id);
+    setValue('gid', user.id);
   }, [user]);
 
   const getErrorMessage = () => {
@@ -51,11 +68,7 @@ const PatientSearch: React.FC<Props> = () => {
 
   return (
     <Container sx={{ py: 6 }}>
-      <Box
-        component="form"
-        onSubmit={handleSubmit(onSubmit)}
-        sx={{ display: 'flex', flexDirection: 'column', gap: 2, maxWidth: 440, mx: 'auto' }}
-      >
+      <Form method="GET" onSubmit={handleSubmit(onSubmit)}>
         <TextField
           type="search"
           variant="outlined"
@@ -69,15 +82,15 @@ const PatientSearch: React.FC<Props> = () => {
               snilsSum,
             },
           })}
-          error={errors.snils}
+          error={!!errors.snils}
           helperText={errors.snils && getErrorMessage()}
           margin="normal"
         />
-        <input type="hidden" {...register('identificator', { required: true })} />
-        <Button type="submit" variant="contained">
+        <input type="hidden" {...register('gid', { required: true })} />
+        <Button type="submit" variant="contained" sx={{ mt: 2 }}>
           Искать
         </Button>
-      </Box>
+      </Form>
     </Container>
   );
 };
