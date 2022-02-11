@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 
+import { Form } from '@components/Form';
 import { useAppError } from '@hooks/useAppError';
 import { useUser } from '@hooks/useUser';
 import { snilsRepeat, snilsSum } from '@utils/validate';
@@ -68,22 +68,7 @@ const PatientSearch: React.FC<Props> = () => {
 
   return (
     <Container sx={{ py: 6 }}>
-      <Box
-        component="form"
-        method="GET"
-        onSubmit={handleSubmit(onSubmit)}
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 4,
-          maxWidth: 440,
-          mx: 'auto',
-          '& .MuiFormHelperText-root': {
-            position: 'absolute',
-            top: '100%',
-          },
-        }}
-      >
+      <Form method="GET" onSubmit={handleSubmit(onSubmit)}>
         <TextField
           type="search"
           variant="outlined"
@@ -105,7 +90,7 @@ const PatientSearch: React.FC<Props> = () => {
         <Button type="submit" variant="contained">
           Искать
         </Button>
-      </Box>
+      </Form>
     </Container>
   );
 };
