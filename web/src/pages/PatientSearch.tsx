@@ -87,7 +87,7 @@ const PatientSearch: React.FC<Props> = () => {
           margin="normal"
         />
         <input type="hidden" {...register('gid', { required: true })} />
-        <Button type="submit" variant="contained">
+        <Button type="submit" variant="contained" sx={{ mt: 2 }}>
           Искать
         </Button>
       </Form>

@@ -14,13 +14,9 @@ const Form: React.FC<Props> = ({ children, method = 'GET', onSubmit }) => (
     sx={{
       display: 'flex',
       flexDirection: 'column',
-      gap: 4,
       maxWidth: 440,
       mx: 'auto',
-      '& .MuiFormHelperText-root': {
-        position: 'absolute',
-        top: '100%',
-      },
+      width: '100%',
     }}
   >
     {children}
