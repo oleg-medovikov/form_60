@@ -4,6 +4,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "prod": "npm run build && npx serve -s dist -p 3000",
+    "lighthouse": "lighthouse http://localhost:3000/?uid=175074254 --view",
     "preview": "vite preview",
     "lint": "eslint src --ext .ts,.tsx --fix",
     "prettify": "prettier src --write"
