@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 
+import { Login } from '@pages/Login';
 import { PatientCreate } from '@pages/PatientCreate';
 import { PatientSearch } from '@pages/PatientSearch';
 import { AppError } from '@components/AppError';
@@ -12,7 +13,8 @@ const App = () => (
     <CssBaseline />
     <AppError />
     <Routes>
-      <Route path="/" element={<PatientSearch />} />
+      <Route path="/" element={<Login />} />
+      <Route path="/search" element={<PatientSearch />} />
       <Route path="/create" element={<PatientCreate />} />
     </Routes>
     <Footer />

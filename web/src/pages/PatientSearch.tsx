@@ -5,14 +5,14 @@ import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 
 import { Form } from '@components/Form';
+import { useAppConfig } from '@hooks/useAppConfig';
 import { useAppError } from '@hooks/useAppError';
-import { useUser } from '@hooks/useUser';
 import { snilsRepeat, snilsSum } from '@utils/validate';
 
 type Props = {};
 
 const PatientSearch: React.FC<Props> = () => {
-  const user = useUser();
+  const { config: groupId } = useAppConfig();
   const { setErrorMessage } = useAppError();
   const {
     formState: { errors },
@@ -48,8 +48,8 @@ const PatientSearch: React.FC<Props> = () => {
   };
 
   useEffect(() => {
-    setValue('gid', user.id);
-  }, [user]);
+    setValue('gid', groupId);
+  }, [groupId]);
 
   const getErrorMessage = () => {
     switch (errors.snils?.type) {

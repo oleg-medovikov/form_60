@@ -3,6 +3,7 @@ import { createContext, useMemo, useState } from 'react';
 
 type AppConfig = {
   groupId: string;
+  username: string;
 };
 
 type AppConfigContextType = {
@@ -11,7 +12,7 @@ type AppConfigContextType = {
 };
 
 const initialValue: AppConfigContextType = {
-  config: { groupId: '' },
+  config: { groupId: '', username: '' },
   setConfig: () => null,
 };
 
@@ -20,6 +21,7 @@ const AppConfigContext = createContext<AppConfigContextType>(initialValue);
 const AppConfigProvider: React.FC = ({ children }) => {
   const [storedConfig, setStoredConfig] = useSessionStorage<AppConfig>('form60:config', {
     groupId: '',
+    username: '',
   });
 
   const [config, setConfig] = useState<AppConfig>(storedConfig);
