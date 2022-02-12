@@ -1,16 +1,20 @@
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
-import { useUser } from '@hooks/useUser';
+import { useAppConfig } from '@hooks/useAppConfig';
 
 type Props = {};
 
 const Footer: React.FC<Props> = () => {
-  const { fio, id } = useUser();
+  const {
+    config: { groupId, username },
+  } = useAppConfig();
 
   return (
-    <Box sx={{ mt: 'auto', py: 2 }}>
-      <Container>{id ? `${fio}, ваш id группы ${id}` : 'id группы неизвестен'}</Container>
+    <Box component="footer" sx={{ mt: 'auto', py: 2 }}>
+      <Container>
+        {groupId ? `${username}, ваш id группы ${groupId}` : 'id группы неизвестен'}
+      </Container>
     </Box>
   );
 };
